@@ -89,18 +89,14 @@ function parseLinesToConstructors(
       continue;
     }
 
-    const factoryConstructor = line.includes(`factory ${className}.`);
-
     let openParenthesisCount = 0;
-    const openingParenthesisChar = factoryConstructor ? "(" : "{";
-    const closingParenthesisChar = factoryConstructor ? ")" : "}";
 
     for (let j = i; j < lines.length; j++) {
       // FIXME Possibly many occurrences in one line?
-      if (lines[j].includes(openingParenthesisChar)) {
+      if (lines[j].includes("(")) {
         openParenthesisCount++;
       }
-      if (lines[j].includes(closingParenthesisChar)) {
+      if (lines[j].includes(")")) {
         openParenthesisCount--;
       }
       if (openParenthesisCount > 0) {
